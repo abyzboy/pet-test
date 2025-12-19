@@ -1,0 +1,129 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Заявка #{{ ticket.id }}{% endblock %}
+{% block page_title %}📝 Заявка #{{ ticket.id }}{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 20px;">
+    <a href="/admin/tickets" style="color: #667eea; text-decoration: none; font-size: 14px;">
+        ← Вернуться к списку заявок
+    </a>
+</div>
+
+<div class="content-box">
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
+        <!-- Левая колонка - информация -->
+        <div>
+            <h2 style="font-size: 24px; color: #2c3e50; margin-bottom: 20px;">
+                Информация о заявке
+            </h2>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <div style="display: grid; gap: 15px;">
+                    <div>
+                        <strong style="color: #7f8c8d; font-size: 12px; text-transform: uppercase;">Имя клиента</strong>
+                        <div style="font-size: 18px; color: #2c3e50; margin-top: 5px;">{{ ticket.name }}</div>
+                    </div>
+
+                    <div>
+                        <strong style="color: #7f8c8d; font-size: 12px; text-transform: uppercase;">Email</strong>
+                        <div style="font-size: 16px; color: #2c3e50; margin-top: 5px;">
+                            <a href="mailto:{{ ticket.email }}" style="color: #667eea; text-decoration: none;">
+                                {{ ticket.email }}
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong style="color: #7f8c8d; font-size: 12px; text-transform: uppercase;">Телефон</strong>
+                        <div style="font-size: 16px; color: #2c3e50; margin-top: 5px;">
+                            <a href="tel:{{ ticket.phone }}" style="color: #667eea; text-decoration: none;">
+                                {{ ticket.phone }}
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong style="color: #7f8c8d; font-size: 12px; text-transform: uppercase;">Тип проекта</strong>
+                        <div style="font-size: 16px; color: #2c3e50; margin-top: 5px;">{{ ticket.project_type }}</div>
+                    </div>
+
+                    {% if ticket.message %}
+                    <div>
+                        <strong style="color: #7f8c8d; font-size: 12px; text-transform: uppercase;">Сообщение</strong>
+                        <div style="font-size: 16px; color: #2c3e50; margin-top: 5px; line-height: 1.6;">
+                            {{ ticket.message }}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Метаданные -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 14px; color: #7f8c8d;">
+                <div>
+                    <strong>Создана:</strong> {{ ticket.created_at.strftime('%d.%m.%Y в %H:%M') }}
+                </div>
+                {% if ticket.updated_at %}
+                <div>
+                    <strong>Обновлена:</strong> {{ ticket.updated_at.strftime('%d.%m.%Y в %H:%M') }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Правая колонка - управление -->
+        <div>
+            <h3 style="font-size: 18px; color: #2c3e50; margin-bottom: 15px;">
+                Управление статусом
+            </h3>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
+                <div style="margin-bottom: 20px;">
+                    <strong style="display: block; margin-bottom: 10px;">Текущий статус:</strong>
+                    {% if ticket.status.value == 'new' %}
+                        <span class="badge badge-new" style="font-size: 14px; padding: 8px 16px;">Новая</span>
+                    {% elif ticket.status.value == 'in_progress' %}
+                        <span class="badge badge-in-progress" style="font-size: 14px; padding: 8px 16px;">В работе</span>
+                    {% elif ticket.status.value == 'completed' %}
+                        <span class="badge badge-completed" style="font-size: 14px; padding: 8px 16px;">Завершена</span>
+                    {% else %}
+                        <span class="badge badge-cancelled" style="font-size: 14px; padding: 8px 16px;">Отменена</span>
+                    {% endif %}
+                </div>
+
+                <form method="POST" action="/admin/tickets/{{ ticket.id }}/status">
+                    <div class="form-group">
+                        <label>Изменить статус:</label>
+                        <select name="status" class="form-control">
+                            {% for status in all_statuses %}
+                            <option value="{{ status }}" {% if status == ticket.status.value %}selected{% endif %}>
+                                {% if status == 'new' %}Новая
+                                {% elif status == 'in_progress' %}В работе
+                                {% elif status == 'completed' %}Завершена
+                                {% else %}Отменена
+                                {% endif %}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%;">
+                        Обновить статус
+                    </button>
+                </form>
+            </div>
+
+            <!-- Быстрые действия -->
+            <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 10px;">
+                <a href="mailto:{{ ticket.email }}" class="btn btn-secondary" style="text-align: center;">
+                    ✉️ Написать email
+                </a>
+                <a href="tel:{{ ticket.phone }}" class="btn btn-secondary" style="text-align: center;">
+                    📞 Позвонить
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

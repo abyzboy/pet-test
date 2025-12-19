@@ -1,0 +1,105 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Дашборд{% endblock %}
+{% block page_title %}📊 Дашборд{% endblock %}
+
+{% block content %}
+<!-- Статистика -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>Всего заявок</h3>
+        <div class="number">{{ total_tickets }}</div>
+    </div>
+    
+    <div class="stat-card" style="border-left-color: #3498db;">
+        <h3>Новые заявки</h3>
+        <div class="number" style="color: #3498db;">{{ tickets_stats.get('new', 0) }}</div>
+    </div>
+    
+    <div class="stat-card" style="border-left-color: #f39c12;">
+        <h3>В работе</h3>
+        <div class="number" style="color: #f39c12;">{{ tickets_stats.get('in_progress', 0) }}</div>
+    </div>
+    
+    <div class="stat-card" style="border-left-color: #27ae60;">
+        <h3>Завершенные</h3>
+        <div class="number" style="color: #27ae60;">{{ tickets_stats.get('completed', 0) }}</div>
+    </div>
+    
+    <div class="stat-card" style="border-left-color: #9b59b6;">
+        <h3>Всего проектов</h3>
+        <div class="number" style="color: #9b59b6;">{{ total_projects }}</div>
+    </div>
+    
+    <div class="stat-card" style="border-left-color: #27ae60;">
+        <h3>Опубликовано</h3>
+        <div class="number" style="color: #27ae60;">{{ published_projects }}</div>
+    </div>
+</div>
+
+<!-- Последние заявки -->
+<div class="content-box">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="font-size: 20px; color: #2c3e50;">📝 Последние заявки</h2>
+        <a href="/admin/tickets" class="btn">Все заявки →</a>
+    </div>
+
+    {% if recent_tickets %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Email</th>
+                <th>Проект</th>
+                <th>Статус</th>
+                <th>Дата</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in recent_tickets %}
+            <tr>
+                <td>#{{ ticket.id }}</td>
+                <td>{{ ticket.name }}</td>
+                <td>{{ ticket.email }}</td>
+                <td>{{ ticket.project_type }}</td>
+                <td>
+                    {% if ticket.status.value == 'new' %}
+                        <span class="badge badge-new">Новая</span>
+                    {% elif ticket.status.value == 'in_progress' %}
+                        <span class="badge badge-in-progress">В работе</span>
+                    {% elif ticket.status.value == 'completed' %}
+                        <span class="badge badge-completed">Завершена</span>
+                    {% else %}
+                        <span class="badge badge-cancelled">Отменена</span>
+                    {% endif %}
+                </td>
+                <td>{{ ticket.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                <td>
+                    <a href="/admin/tickets/{{ ticket.id }}" class="btn" style="padding: 5px 10px; font-size: 12px;">
+                        Открыть
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #95a5a6; padding: 40px 0;">
+        Заявок пока нет
+    </p>
+    {% endif %}
+</div>
+
+<!-- Быстрые действия -->
+<div class="content-box" style="margin-top: 20px;">
+    <h2 style="font-size: 20px; color: #2c3e50; margin-bottom: 20px;">⚡ Быстрые действия</h2>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <a href="/admin/projects/create" class="btn">+ Добавить проект</a>
+        <a href="/admin/tickets" class="btn btn-secondary">Просмотреть все заявки</a>
+        <a href="/admin/projects" class="btn btn-secondary">Управление проектами</a>
+        <a href="/" target="_blank" class="btn btn-secondary">Открыть сайт</a>
+    </div>
+</div>
+{% endblock %}

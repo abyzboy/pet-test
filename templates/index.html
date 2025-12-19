@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДомиЛьоны - Строительство премиум домов</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a1628;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #ffffff;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            flex: 1;
+            margin-left: 80px;
+        }
+
+        nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #00d4ff;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #0099ff);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .phone-header {
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .phone-header:hover {
+            transform: scale(1.05);
+            color: #00f0ff;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(10, 22, 40, 0.4), rgba(10, 22, 40, 0.6)), 
+                        url('https://images.unsplash.com/photo-1570129477492-45c003cedd07?w=1600&h=900&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 153, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            z-index: 10;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            letter-spacing: 0.5px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid rgba(0, 212, 255, 0.5);
+            color: #00d4ff;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: #00d4ff;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+        }
+
+        /* About Section */
+        .about {
+            max-width: 1400px;
+            margin: 120px auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 100px 40px;
+            background: linear-gradient(180deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 153, 255, 0.05) 100%);
+        }
+
+        .projects-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .projects h2 {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .projects-subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 60px;
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+            z-index: 1;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .project-image-wrapper {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.12) rotate(0.5deg);
+            filter: brightness(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 255, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-info {
+            padding: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .project-meta {
+            color: rgba(0, 212, 255, 0.8);
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .project-info p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(20, 40, 60, 0.95), rgba(10, 22, 40, 0.95));
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 550px;
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            animation: slideIn 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: rgba(255, 255, 255, 0.5);
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+
+        .close:hover {
+            color: #00d4ff;
+            transform: rotate(90deg);
+        }
+
+        .modal h2 {
+            margin-bottom: 30px;
+            color: #ffffff;
+            clear: both;
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;            margin-bottom: 8px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-buttons button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #00d4ff, #0099ff);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #00d4ff;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 22, 40, 0.8);
+            backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            padding: 50px 40px;
+            margin-top: 100px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .footer-contact {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact a {
+            color: #00d4ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .footer-contact a:hover {
+            color: #00f0ff;
+            transform: translateY(-2px);
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 153, 255, 0.2));
+            border: 1px solid rgba(0, 212, 255, 0.5);
+            color: #00d4ff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            z-index: 2000;
+            animation: slideInRight 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            backdrop-filter: blur(10px);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .header-container {
+                padding: 0 30px;
+            }
+
+            nav {
+                margin-left: 40px;
+                gap: 25px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0 20px;
+            }
+
+            nav {
+                margin-left: 0;
+                gap: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about h2,
+            .projects h2 {
+                font-size: 32px;
+            }
+
+            .modal-content {
+                padding: 30px;
+                width: 95%;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .phone-header {
+                font-size: 14px;
+            }
+
+            .about,
+            .projects {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">🏠 ДОМИЛЬОНЫ</div>
+            <nav>
+                <a href="#about">О компании</a>
+                <a href="#projects">Проекты</a>
+                <a href="#contacts">Контакты</a>
+            </nav>
+            <div class="header-right">
+                <a href="tel:+79991234567" class="phone-header">📞 +7 (999) 123-45-67</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Строим мечты в реальность</h1>
+            <p>Премиум строительство частных домов и коттеджей премиум класса</p>
+            <div class="hero-buttons">
+                <button class="btn" onclick="openModal()">Оставить заявку</button>
+                <a href="#projects" class="btn btn-secondary">Смотреть проекты</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <h2>О компании ДомиЛьоны</h2>
+        <p>
+            Мы - компания с 20-летним опытом в строительстве премиум домов и коттеджей класса люкс. 
+            Наша команда профессионалов использует только качественные материалы и инновационные 
+            технологии строительства. Каждый дом, который мы строим - это уникальное произведение архитектуры, 
+            построенное с любовью и вниманием к каждой детали.
+        </p>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="projects-container">
+            <h2>Наши реализованные проекты</h2>
+            <p class="projects-subtitle">Коллекция лучших домов, построенных нашей компанией</p>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1570129477492-45c003cedd07?w=500&h=350&fit=crop" alt="Современный коттедж Лион" class="project-image">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Современный коттедж "Лион"</h3>
+                        <div class="project-meta">280 м² • 4 комнаты • 2023</div>
+                        <p>Стильный коттедж в современном стиле с панорамными окнами, просторной гостиной и террасой. Построен из кирпича с использованием энергосберегающих технологий.</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=500&h=350&fit=crop" alt="Классический особняк Премиум" class="project-image">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Классический особняк "Премиум"</h3>
+                        <div class="project-meta">350 м² • 5 комнат • 2023</div>
+                        <p>Элегантный двухэтажный дом с классической архитектурой, просторной библиотекой, кабинетом и домашним кинотеатром. Отделка премиум класса.</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&h=350&fit=crop" alt="Минималистичный дом Мини" class="project-image">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Минималистичный дом "Минима"</h3>
+                        <div class="project-meta">180 м² • 3 комнаты • 2023</div>
+                        <p>Компактный дом в стиле минимализма с открытой планировкой. Идеален для небольших семей. Экономичный расход энергии.</p>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card">
+                    <div class="project-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1475221409828-2f2a9e63b51f?w=500&h=350&fit=crop" alt="Люкс резиденция с бассейном" class="project-image">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Люкс резиденция "Аквамарин"</h3>
+                        <div class="project-meta">420 м² • 6 комнат • 2022</div>
+                        <p>Роскошный дом с собственным бассейном, спа-центром и винотекой. Панорамные окна с видом на природу. Готовая система "умный дом".</p>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card">
+                    <div class="project-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=500&h=350&fit=crop" alt="Коттедж в скандинавском стиле" class="project-image">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Скандинавский коттедж "Норд"</h3>
+                        <div class="project-meta">320 м² • 5 комнат • 2023</div>
+                        <p>Светлый дом в скандинавском стиле с деревянной отделкой, большими окнами и уютным камином. Экологичные материалы и естественное освещение.</p>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card">
+                    <div class="project-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=350&fit=crop" alt="Современное поместье Элит" class="project-image">
+                        <div class="project-overlay"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Современное поместье "Элит"</h3>
+                        <div class="project-meta">500 м² • 7 комнат • 2022</div>
+                        <p>Огромный дом с несколькими гостевыми комнатами, домашним кинотеатром, спортзалом и гаражом на 4 машины. Готовая инфраструктура для больших семей.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contacts">
+        <div class="footer-content">
+            <p style="font-size: 18px; font-weight: 700; margin-bottom: 30px;">Свяжитесь с нами</p>
+            <div class="footer-contact">
+                <a href="tel:+79991234567">📞 +7 (999) 123-45-67</a>
+                <a href="mailto:info@domiliony.ru">✉️ info@domiliony.ru</a>
+                <a href="#">🏠 г. Москва, ул. Строителей 123</a>
+            </div>
+            <p style="margin-top: 30px; color: rgba(255, 255, 255, 0.5); font-size: 14px;">
+                © 2024 ДомиЛьоны. Все права защищены.
+            </p>
+        </div>
+    </footer>
+
+
+    <!-- Modal for Application -->
+    <div class="modal" id="applicationModal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal()">&times;</button>
+            <h2>Оставить заявку</h2>
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label for="name">Ваше имя *</label>
+                    <input type="text" 
+                    id="name" 
+                    name="name" 
+                    placeholder="Введите ваше имя" 
+                    required minlength="3" 
+                    pattern="[А-Яа-яЁёA-Za-z\s]+">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Номер телефона *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectType">Тип проекта *</label>
+                    <!-- ← Добавлен required! -->
+                    <input type="text" id="projectType" name="projectType" placeholder="Например: Коттедж, Особняк, Таунхаус" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Ваше сообщение</label>
+                    <!-- ← ИЗМЕНЕНО на textarea! -->
+                    <textarea id="message" name="message" placeholder="Расскажите о вашем проекте мечты..."></textarea>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn-submit">Отправить заявку</button>
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        ✓ Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
+    </div>
+
+    <script>
+        // Modal Functions
+        function openModal() {
+            const modal = document.getElementById('applicationModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('applicationModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('applicationModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+// Замени эту часть в твоем HTML (строки 933-963)
+// Form Submission
+// В твоем HTML замени эту часть
+document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Собираем данные формы с ПРАВИЛЬНЫМИ именами полей
+    const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        projectType: document.getElementById('projectType').value,  // ← Верблюжий регистр!
+        message: document.getElementById('message').value
+    };
+
+    console.log('Отправка данных:', formData);
+
+    try {
+        const response = await fetch('/api/submit-application', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.textContent = result.message;
+            successMsg.classList.add('active');
+
+            document.getElementById('applicationForm').reset();
+            closeModal();
+
+            setTimeout(() => {
+                successMsg.classList.remove('active');
+            }, 5000);
+        } else {
+            alert('Ошибка: ' + result.message);
+        }
+
+    } catch (error) {
+        console.error('Ошибка отправки:', error);
+        alert('Не удалось отправить заявку. Проверьте подключение к интернету.');
+    }
+});
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    const element = document.querySelector(href);
+                    element.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation to project cards on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card').forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.animationDelay = `${index * 0.1}s`;
+            observer.observe(card);
+        });
+
+        // Add parallax effect on mouse move
+        const hero = document.querySelector('.hero');
+        document.addEventListener('mousemove', (e) => {
+            if (!hero) return;
+            
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            const floatElements = hero.querySelectorAll('::before, ::after');
+            hero.style.backgroundPosition = `${50 + x * 5}% ${50 + y * 5}%`;
+        });
+
+        // Phone number formatting
+        const phoneInput = document.getElementById('phone');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                
+                if (value.length > 0) {
+                    if (value.length <= 1) {
+                        value = '+7' + value;
+                    } else if (value.length <= 3) {
+                        value = '+7 (' + value.slice(1) + ')';
+                    } else if (value.length <= 6) {
+                        value = '+7 (' + value.slice(1, 4) + ') ' + value.slice(4);
+                    } else if (value.length <= 8) {
+                        value = '+7 (' + value.slice(1, 4) + ') ' + value.slice(4, 7) + '-' + value.slice(7);
+                    } else {
+                        value = '+7 (' + value.slice(1, 4) + ') ' + value.slice(4, 7) + '-' + value.slice(7, 9) + '-' + value.slice(9, 11);
+                    }
+                    e.target.value = value;
+                }
+            });
+        }
+
+        // Add scroll event for header background
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(10, 22, 40, 0.98)';
+                header.style.boxShadow = '0 5px 20px rgba(0, 212, 255, 0.1)';
+            } else {
+                header.style.background = 'rgba(10, 22, 40, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const images = document.querySelectorAll('.project-image');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Add click feedback for buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                ripple.style.pointerEvents = 'none';
+
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+
+                this.appendChild(ripple);
+
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

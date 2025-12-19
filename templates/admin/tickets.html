@@ -1,0 +1,121 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Заявки{% endblock %}
+{% block page_title %}📝 Управление заявками{% endblock %}
+
+{% block content %}
+<div class="content-box">
+    <!-- Фильтры -->
+    <div style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+        <form method="GET" action="/admin/tickets" style="display: flex; gap: 15px; flex-wrap: wrap; align-items: end;">
+            <!-- Поиск -->
+            <div style="flex: 1; min-width: 200px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px;">
+                    🔍 Поиск
+                </label>
+                <input 
+                    type="text" 
+                    name="search" 
+                    placeholder="Имя или email..."
+                    value="{{ search_query }}"
+                    style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 5px;"
+                >
+            </div>
+
+            <!-- Фильтр по статусу -->
+            <div style="min-width: 200px;">
+                <label style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px;">
+                    📊 Статус
+                </label>
+                <select 
+                    name="status"
+                    style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 5px;"
+                >
+                    <option value="">Все статусы</option>
+                    {% for status in all_statuses %}
+                    <option value="{{ status }}" {% if current_status == status %}selected{% endif %}>
+                        {% if status == 'new' %}Новые
+                        {% elif status == 'in_progress' %}В работе
+                        {% elif status == 'completed' %}Завершенные
+                        {% else %}Отмененные
+                        {% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Кнопки -->
+            <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn" style="padding: 8px 20px;">
+                    Применить
+                </button>
+                <a href="/admin/tickets" class="btn btn-secondary" style="padding: 8px 20px;">
+                    Сбросить
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Таблица заявок -->
+    {% if tickets %}
+    <div style="overflow-x: auto;">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Дата</th>
+                    <th>Имя</th>
+                    <th>Email</th>
+                    <th>Телефон</th>
+                    <th>Тип проекта</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td><strong>#{{ ticket.id }}</strong></td>
+                    <td>{{ ticket.created_at.strftime('%d.%m.%Y') }}<br>
+                        <small style="color: #95a5a6;">{{ ticket.created_at.strftime('%H:%M') }}</small>
+                    </td>
+                    <td>{{ ticket.name }}</td>
+                    <td>{{ ticket.email }}</td>
+                    <td>{{ ticket.phone }}</td>
+                    <td>{{ ticket.project_type }}</td>
+                    <td>
+                        {% if ticket.status.value == 'new' %}
+                            <span class="badge badge-new">Новая</span>
+                        {% elif ticket.status.value == 'in_progress' %}
+                            <span class="badge badge-in-progress">В работе</span>
+                        {% elif ticket.status.value == 'completed' %}
+                            <span class="badge badge-completed">Завершена</span>
+                        {% else %}
+                            <span class="badge badge-cancelled">Отменена</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/admin/tickets/{{ ticket.id }}" class="btn" style="padding: 5px 15px; font-size: 12px;">
+                            Открыть
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div style="text-align: center; padding: 60px 20px;">
+        <div style="font-size: 48px; margin-bottom: 15px;">📝</div>
+        <h3 style="color: #2c3e50; margin-bottom: 10px;">Заявок не найдено</h3>
+        <p style="color: #95a5a6;">
+            {% if search_query or current_status %}
+            Попробуйте изменить параметры фильтрации
+            {% else %}
+            Заявки от клиентов будут отображаться здесь
+            {% endif %}
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
